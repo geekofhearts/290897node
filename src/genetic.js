@@ -1,6 +1,117 @@
 
 var variable_name_offset = 96;
 
+var Operators = {
+    'number' : [
+	{
+	    'repr' : '1+2',
+	    'type' : 'binary'
+	},
+	{
+	    'repr' : '1-2',
+	    'type' : 'binary'
+	},
+	{
+	    'repr' : '1*2',
+	    'type' : 'binary'
+	},
+	{
+	    'repr' : '1/2',
+	    'type' : 'binary'
+	},
+	{
+	    'repr' : '1%2',
+	    'type' : 'binary'
+	},
+	{
+	    'repr' : 'Math.max(1, 2)',
+	    'type' : 'binary'
+	},
+	{
+	    'repr' : 'Math.min(1, 2)',
+	    'type' : 'binary'
+	},
+	{
+	    'repr' : 'Math.atan2(1, 2)',
+	    'type' : 'binary'
+	},
+	{
+	    'repr' : 'Math.pow(1, 2)',
+	    'type' : 'binary'
+	},
+	{
+	    'repr' : 'Math.abs(1)',
+	    'type' : 'unary'
+	},
+	{
+	    'repr' : 'Math.acos(1)',
+	    'type' : 'unary'
+	},
+	{
+	    'repr' : 'Math.asin(1)',
+	    'type' : 'unary'
+	},
+	{
+	    'repr' : 'Math.atan(1)',
+	    'type' : 'unary'
+	},
+	{
+	    'repr' : 'Math.ceil(1)',
+	    'type' : 'unary'
+	},
+	{
+	    'repr' : 'Math.cos(1)',
+	    'type' : 'unary'
+	},
+	{
+	    'repr' : 'Math.exp(1)',
+	    'type' : 'unary'
+	},
+	{
+	    'repr' : 'Math.floor(1)',
+	    'type' : 'unary'
+	},
+	{
+	    'repr' : 'Math.log(1)',
+	    'type' : 'unary'
+	},
+	{
+	    'repr' : 'Math.round(1)',
+	    'type' : 'unary'
+	},
+	{
+	    'repr' : 'Math.sin(1)',
+	    'type' : 'unary'
+	},
+	{
+	    'repr' : 'Math.sqrt(Math.abs(1))',
+	    'type' : 'unary'
+	},
+	{
+	    'repr' : 'Math.tan(1)',
+	    'type' : 'unary'
+	},
+	{
+	    'repr' : '1++',
+	    'type' : 'unary'
+	},
+	{
+	    'repr' : '1--',
+	    'type' : 'unary'
+	},
+	{
+	    'repr' : '++1',
+	    'type' : 'unary'
+	},
+	{
+	    'repr' : '--1',
+	    'type' : 'unary'
+	}
+    ],
+    'string':{},
+    'object':{}
+};
+
 function evaluate_function() {
     var function_as_string = arguments[0];
     var offset = 96;
@@ -73,20 +184,26 @@ function refresh_routine_from_tokenised_repr(individual, pretty) {
     individual["routine"] = routine;
 }
 
-function generate_new_individual(number_of_arguments, allowed_operators, return_template) {
+function generate_new_individual(routine_arguments, allowed_operators, return_template) {
     var new_individual = {};
     var predefined_vars = [];
     var local_vars = [];
     var i;
-    for (i = 1; i <= number_of_arguments; i++) {
+    for (i = 1; i <= routine_arguments.length; i++) {
         predefined_vars.push(String.fromCharCode(variable_name_offset + i));
     }
-    var number_of_local_vars = Math.random() * number_of_arguments * 1.2;
+    var number_of_local_vars = Math.random() * routine_arguments.length * 1.2;
     for (i = 1; i <= number_of_local_vars; i++) {
-        var varname = number_of_arguments + number_of_local_vars <= 26 ?
-            String.fromCharCode(variable_name_offset + number_of_arguments + i) : 
+        var varname = routine_arguments.length + number_of_local_vars <= 26 ?
+            String.fromCharCode(variable_name_offset + routine_arguments.length + i) : 
             'l' + String.fromCharCode(variable_name_offset + i);
         local_vars.push(varname);
     }
     
+    // initialising values for the local vars:
+    // we need to detect the types that the arguments will be and the return will expect, and adjust as required.
+
+    // now we generate a tree of operations (and arguments)
+    var routine = [];
+    var number_of_root_nodes = number_of_local_vars / 3.0 + Math.random() * 
 }
