@@ -1,4 +1,3 @@
- * refactor operators into separate file as module object.
  * finish operator definitions for numbers, strings and objects, plus conversion function syntax.
  * code tree generation (and as-string export)
  * write test script for sqrt

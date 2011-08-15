@@ -1,116 +1,7 @@
 
 var variable_name_offset = 96;
 
-var Operators = {
-    'number' : [
-	{
-	    'repr' : '1+2',
-	    'type' : 'binary'
-	},
-	{
-	    'repr' : '1-2',
-	    'type' : 'binary'
-	},
-	{
-	    'repr' : '1*2',
-	    'type' : 'binary'
-	},
-	{
-	    'repr' : '1/2',
-	    'type' : 'binary'
-	},
-	{
-	    'repr' : '1%2',
-	    'type' : 'binary'
-	},
-	{
-	    'repr' : 'Math.max(1, 2)',
-	    'type' : 'binary'
-	},
-	{
-	    'repr' : 'Math.min(1, 2)',
-	    'type' : 'binary'
-	},
-	{
-	    'repr' : 'Math.atan2(1, 2)',
-	    'type' : 'binary'
-	},
-	{
-	    'repr' : 'Math.pow(1, 2)',
-	    'type' : 'binary'
-	},
-	{
-	    'repr' : 'Math.abs(1)',
-	    'type' : 'unary'
-	},
-	{
-	    'repr' : 'Math.acos(1)',
-	    'type' : 'unary'
-	},
-	{
-	    'repr' : 'Math.asin(1)',
-	    'type' : 'unary'
-	},
-	{
-	    'repr' : 'Math.atan(1)',
-	    'type' : 'unary'
-	},
-	{
-	    'repr' : 'Math.ceil(1)',
-	    'type' : 'unary'
-	},
-	{
-	    'repr' : 'Math.cos(1)',
-	    'type' : 'unary'
-	},
-	{
-	    'repr' : 'Math.exp(1)',
-	    'type' : 'unary'
-	},
-	{
-	    'repr' : 'Math.floor(1)',
-	    'type' : 'unary'
-	},
-	{
-	    'repr' : 'Math.log(1)',
-	    'type' : 'unary'
-	},
-	{
-	    'repr' : 'Math.round(1)',
-	    'type' : 'unary'
-	},
-	{
-	    'repr' : 'Math.sin(1)',
-	    'type' : 'unary'
-	},
-	{
-	    'repr' : 'Math.sqrt(Math.abs(1))',
-	    'type' : 'unary'
-	},
-	{
-	    'repr' : 'Math.tan(1)',
-	    'type' : 'unary'
-	},
-	{
-	    'repr' : '1++',
-	    'type' : 'unary'
-	},
-	{
-	    'repr' : '1--',
-	    'type' : 'unary'
-	},
-	{
-	    'repr' : '++1',
-	    'type' : 'unary'
-	},
-	{
-	    'repr' : '--1',
-	    'type' : 'unary'
-	}
-    ],
-    'string':{},
-    'object':{}
-};
+var operators = require('./operators');
 
 function evaluate_function() {
     var function_as_string = arguments[0];
@@ -151,7 +42,7 @@ function calculate_combined_fitness_function_for_individual(individual, test_cas
         if (!valid) {
             break;
         }
-        Var test_fitness = test_cases[i]['fitness_function'](results[i]);
+        var test_fitness = test_cases[i]['fitness_function'](results[i]);
         mean = (mean * (i - 1) + test_fitness) / i;
     }
     individual['fitness'] = acc;
@@ -205,5 +96,5 @@ function generate_new_individual(routine_arguments, allowed_operators, return_te
 
     // now we generate a tree of operations (and arguments)
     var routine = [];
-    var number_of_root_nodes = number_of_local_vars / 3.0 + Math.random() * 
+    var number_of_root_nodes = number_of_local_vars / 3.0 + Math.random();
 }
